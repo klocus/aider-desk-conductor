@@ -33,7 +33,7 @@ if [ "$1" = "--global" ] || [ "$1" = "-g" ]; then
     echo "Installing globally..."
 else
     # Default: local installation
-    TARGET_DIR="$PWD/.aider-desk/extensions"
+    TARGET_DIR="$ORIGINAL_DIR/.aider-desk/extensions"
     echo "Installing locally..."
 fi
 
