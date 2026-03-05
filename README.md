@@ -1,7 +1,5 @@
 # Conductor Workflow Extension
 
-## What it does
-
 A multi-agent orchestration framework for AiderDesk. The **Conductor** agent plans work, creates a `SPEC.md` as the source of truth, and delegates implementation to specialist subagents. Each subagent has a focused role and runs in its own context.
 
 ## Features
