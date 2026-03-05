@@ -121,7 +121,7 @@ function loadConfig(extensionDir: string): ConductorConfig {
 export default class ConductorExtension implements Extension {
   static metadata = {
     name: 'Conductor',
-    version: '2.1.0',
+    version: '0.1.0',
     description: 'Spec-driven development and agent orchestration inspired by the Augment Intent workflow',
     author: 'Paweł Klockiewicz',
     capabilities: ['agents', 'tools']
