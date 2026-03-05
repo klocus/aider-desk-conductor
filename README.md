@@ -9,8 +9,7 @@ A multi-agent orchestration framework for AiderDesk. The **Conductor** agent pla
 - **`delegate-to-agent` tool** — orchestrates work using one of two modes:
   - `subtask` mode: Creates a visible child task, runs subagent there, and pulls results back.
   - `subagent` mode: Uses subagent system in the current task context.
-- **`config.json`** — central place to choose delegation mode and set global agent defaults.
-- **Config-driven** — individual agent overrides and instructions in `agents/index.json` + `.md` files.
+- **Config-driven** — central `config.json` for delegation mode and global defaults; individual agent overrides and instructions in `agents/index.json` + `.md` files.
 
 ## Agents
 
