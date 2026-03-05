@@ -6,13 +6,22 @@ A multi-agent orchestration framework for AiderDesk. The **Conductor** agent pla
 
 ## Features
 
-- **7 agents** — Conductor + 6 specialists (Investigator, Implementor, Verifier, Critic, Debugger, Code Reviewer)
-- **`update-spec` / `read-spec` tools** — write and read `SPEC.md` stored inside the conductor's task directory
+- **7 agents** — Conductor + 6 specialists *(Investigator, Implementor, Verifier, Critic, Debugger, Code Reviewer)*
+- **`update-spec` / `read-spec` tools** — write and read `SPEC.md` stored inside the AiderDesk's task directory
 - **`delegate-to-agent` tool** — orchestrates work using one of two modes:
   - `subtask` mode: Creates a visible child task, runs subagent there, and pulls results back.
   - `subagent` mode: Uses subagent system in the current task context.
 - **`config.json`** — central place to choose delegation mode and set global agent defaults.
 - **Config-driven** — individual agent overrides and instructions in `agents/index.json` + `.md` files.
+
+## Agents
+
+- **Investigator** — Explore codebase, assess feasibility
+- **Implementor** — Execute implementation plans
+- **Verifier** — Check implementations match specs
+- **Critic** — Review specs for feasibility
+- **Debugger** — Analyze and fix issues
+- **Code Reviewer** — Automated reviews with severity
 
 ## Installation
   
@@ -35,7 +44,7 @@ Set your global defaults and delegation mode in `config.json`:
   "delegationMode": "subtask",
   "defaults": {
     "provider": "anthropic",
-    "model": "claude-3-5-sonnet-latest",
+    "model": "claude-4-5-sonnet-latest",
     "maxIterations": 100,
     "autoApprove": true,
     ...
