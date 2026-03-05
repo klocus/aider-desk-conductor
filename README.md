@@ -25,8 +25,14 @@ A multi-agent orchestration framework for AiderDesk. The **Conductor** agent pla
 
 ## Installation
 
+**Local installation:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/klocus/aider-desk-conductor/master/install.sh | bash
+```
+
+**Global installation:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/klocus/aider-desk-conductor/master/install.sh | bash -s -- --global
 ```
 
 ## How to use it

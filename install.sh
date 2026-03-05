@@ -3,6 +3,7 @@
 set -e
 
 REPO_URL="https://github.com/klocus/aider-desk-conductor/archive/refs/heads/master.zip"
+ORIGINAL_DIR="$PWD"
 TEMP_DIR=$(mktemp -d)
 TRAP_CLEANUP() { rm -rf "$TEMP_DIR"; }
 trap TRAP_CLEANUP EXIT
@@ -24,34 +25,17 @@ unzip -q repo.zip
 
 SCRIPT_DIR="aider-desk-conductor-master"
 
-# Ask user for installation type
-echo ""
-echo "Conductor Extension Installer"
-echo "=============================="
-echo ""
-echo "Choose installation type:"
-echo "  1) Local  (\$PWD/.aider-desk/extensions)"
-echo "  2) Global (\$HOME/.aider-desk/extensions)"
-echo ""
-read -p "Enter choice [1-2]: " choice
+# Parse arguments
+TARGET_DIR=""
 
-# Determine target directory
-case $choice in
-    1)
-        TARGET_DIR="$PWD/.aider-desk/extensions"
-        echo ""
-        echo "Installing locally..."
-        ;;
-    2)
-        TARGET_DIR="$HOME/.aider-desk/extensions"
-        echo ""
-        echo "Installing globally..."
-        ;;
-    *)
-        echo "Invalid choice. Please run the script again and enter 1 or 2."
-        exit 1
-        ;;
-esac
+if [ "$1" = "--global" ] || [ "$1" = "-g" ]; then
+    TARGET_DIR="$HOME/.aider-desk/extensions"
+    echo "Installing globally..."
+else
+    # Default: local installation
+    TARGET_DIR="$PWD/.aider-desk/extensions"
+    echo "Installing locally..."
+fi
 
 # Create extensions directory
 mkdir -p "$TARGET_DIR"
