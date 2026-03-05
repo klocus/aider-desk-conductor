@@ -24,7 +24,10 @@ A multi-agent orchestration framework for AiderDesk. The **Conductor** agent pla
 - **Code Reviewer** — Automated reviews with severity
 
 ## Installation
-  
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/klocus/aider-desk-conductor/master/install.sh | bash
+```
 
 ## How to use it
 
