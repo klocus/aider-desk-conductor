@@ -50,6 +50,10 @@ interface AgentDefaults {
 
 interface ConductorConfig {
   delegationMode: DelegationMode;
+  reminders?: {
+    conductor?: string[];
+    subagent?: string[];
+  };
   defaults: AgentDefaults;
 }
 
@@ -166,27 +170,26 @@ export default class ConductorExtension implements Extension {
     _context: ExtensionContext
   ): Promise<any> {
     try {
-      const remindersPath = path.join(this.extensionDir, 'reminders.json');
-      const remindersJson = JSON.parse(fs.readFileSync(remindersPath, 'utf-8'));
-      
-      let reminders = [];
-      if (event.profile.id === 'conductor' && remindersJson.conductor) {
-        reminders = remindersJson.conductor;
-      } else if (remindersJson.subagent) {
-        reminders = remindersJson.subagent;
-      }
-      
-      if (reminders.length > 0) {
-        const customReminders = `\n<ThisIsImportant>\n${reminders.map((r: string) => `<Reminder>\n${r}\n</Reminder>`).join('\n')}\n</ThisIsImportant>`;
+      if (this.config.reminders) {
+        let reminders: string[] = [];
+        if (event.profile.id === 'conductor' && this.config.reminders.conductor) {
+          reminders = this.config.reminders.conductor;
+        } else if (this.config.reminders.subagent) {
+          reminders = this.config.reminders.subagent;
+        }
         
-        if (event.profile.id === 'conductor') {
-          event.remindersContent = customReminders;
-        } else {
-          event.remindersContent += customReminders;
+        if (reminders.length > 0) {
+          const customReminders = `\n<ThisIsImportant>\n${reminders.map((r: string) => `<Reminder>\n${r}\n</Reminder>`).join('\n')}\n</ThisIsImportant>`;
+          
+          if (event.profile.id === 'conductor') {
+            event.remindersContent = customReminders;
+          } else {
+            event.remindersContent += customReminders;
+          }
         }
       }
     } catch (e) {
-      _context.log(`[Conductor] Failed to load reminders: ${e}`, 'warn');
+      _context.log(`[Conductor] Failed to process reminders: ${e}`, 'warn');
     }
 
     return event;

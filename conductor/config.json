@@ -1,5 +1,16 @@
 {
   "delegationMode": "subtask",
+  "reminders": {
+    "conductor": [
+      "NEVER edit files directly. All code changes MUST be delegated to specialist subagents.",
+      "Always update SPEC.md with the latest plan before delegating any work.",
+      "Before delegating implementation tasks, present the plan in SPEC.md and STOP. Wait for explicit user approval. Delegating to the Investigator for initial context gathering does NOT require approval.",
+      "After every implementation wave, you MUST run the Post-Implementation Pipeline (Verifier -> Code Reviewer -> Analyze)."
+    ],
+    "subagent": [
+      "You are a subagent. Focus strictly on your specialized task. Output results clearly for the Conductor."
+    ]
+  },
   "defaults": {
     "provider": "zai-plan",
     "model": "glm-4.7",
