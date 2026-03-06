@@ -161,6 +161,37 @@ export default class ConductorExtension implements Extension {
     return updatedProfile;
   }
 
+  async onImportantReminders(
+    event: any,
+    _context: ExtensionContext
+  ): Promise<any> {
+    try {
+      const remindersPath = path.join(this.extensionDir, 'reminders.json');
+      const remindersJson = JSON.parse(fs.readFileSync(remindersPath, 'utf-8'));
+      
+      let reminders = [];
+      if (event.profile.id === 'conductor' && remindersJson.conductor) {
+        reminders = remindersJson.conductor;
+      } else if (remindersJson.subagent) {
+        reminders = remindersJson.subagent;
+      }
+      
+      if (reminders.length > 0) {
+        const customReminders = `\n<ThisIsImportant>\n${reminders.map((r: string) => `<Reminder>\n${r}\n</Reminder>`).join('\n')}\n</ThisIsImportant>`;
+        
+        if (event.profile.id === 'conductor') {
+          event.remindersContent = customReminders;
+        } else {
+          event.remindersContent += customReminders;
+        }
+      }
+    } catch (e) {
+      _context.log(`[Conductor] Failed to load reminders: ${e}`, 'warn');
+    }
+
+    return event;
+  }
+
   getTools(_context: ExtensionContext, _mode: string, agentProfile: AgentProfile): ToolDefinition[] {
     const tools: ToolDefinition[] = [];
     const isWorkflowAgent = Boolean(agentProfile?.id && this.agents.some(a => a.id === agentProfile.id));
